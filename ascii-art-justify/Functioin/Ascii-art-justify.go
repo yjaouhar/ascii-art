@@ -10,7 +10,7 @@ import (
 
 var (
 	option      string
-	color_flage string
+	secend_flage string
 	inputtext   string
 	substr      string
 	banner      string
@@ -30,7 +30,7 @@ func Justify(arg []string) {
 	}
 	if len(arg) == 3 {
 		if strings.HasPrefix(arg[1], "--color=") {
-			color_flage = arg[1]
+			secend_flage = arg[1]
 			inputtext = arg[2]
 		} else {
 			inputtext = arg[1]
@@ -42,7 +42,7 @@ func Justify(arg []string) {
 		}
 	} else if len(arg) == 4 {
 		if strings.HasPrefix(arg[1], "--color=") {
-			color_flage = arg[1]
+			secend_flage = arg[1]
 			if !Checkbanner(arg[3]) {
 				inputtext = arg[2]
 				banner = arg[3]
@@ -57,7 +57,7 @@ func Justify(arg []string) {
 
 	} else if len(arg) == 5 {
 		if strings.HasPrefix(arg[1], "--color=") {
-			color_flage = arg[1]
+			secend_flage = arg[1]
 			substr = arg[2]
 			inputtext = arg[3]
 			banner = arg[4]
@@ -78,5 +78,5 @@ func Justify(arg []string) {
 	size := strings.TrimSpace(string(si))
 	parts := strings.Split(size, " ")
 	width, _ := strconv.Atoi(parts[1])
-	Asci_art(option, inputtext, banner, substr, color_flage, width)
+	Asci_art(option, inputtext, banner, substr, secend_flage, width)
 }

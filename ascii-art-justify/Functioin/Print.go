@@ -7,26 +7,27 @@ import (
 )
 
 // print the sscii-art
-func Print(elm string, matrix [][]string, option string, color string, substr string, color_flage string, nbspec int) string {
+func Print(elm string, matrix [][]string, option string, color string, substr string, secend_flage string, nbspec int) string {
 	print := ""
 	writ := ""
 	spac := ""
 	for i := 0; i < nbspec; i++ {
 		spac += " "
 	}
-		fmt.Println(spac)
+	fmt.Println(spac)
 	for i := 0; i < 8; i++ { // The lines that will be written the ascii-art
-		if option == "center" || option == "right" {
+		if (option == "center" || option == "right") || (secend_flage == "center" || secend_flage == "right") {
 			print += spac
 		}
 		for k := 0; k < len(elm); k++ {
-			if (k != 0 && k != len(elm)-1) && (elm[k] == ' ' && option == "justify") {
+			if (k != 0 && k != len(elm)-1) && (elm[k] == ' ' && (option == "justify" || secend_flage == "justify")) {
+			
 				print += (spac)
 			}
-			for k != len(elm)-1 && (elm[k] == ' ' && option == "justify") {
+			for k != len(elm)-1 && (elm[k] == ' ' &&( option == "justify"|| secend_flage == "justify")) {
 				k++
 			}
-			if strings.HasPrefix(option, "--color=") || color_flage != "" {
+			if strings.HasPrefix(option, "--color=") || secend_flage != ""  {
 				if substr != "" {
 					if strings.HasPrefix(elm[k:], substr) { // serche for the sub string in the text
 						for x := 0; x < len(substr); x++ {
