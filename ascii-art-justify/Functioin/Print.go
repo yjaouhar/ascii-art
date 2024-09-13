@@ -12,7 +12,7 @@ func Print(elm string, matrix [][]string, option string, color string, substr st
 	writ := ""
 	spac := ""
 	for i := 0; i < nbspec; i++ {
-		spac += "-"
+		spac += " "
 	}
 		fmt.Println(spac)
 	for i := 0; i < 8; i++ { // The lines that will be written the ascii-art

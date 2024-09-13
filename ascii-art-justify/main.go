@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	Func "justify/Function"
+	Func "ascii-art/Functioin"
 )
 
 func main() {

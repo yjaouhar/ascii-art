@@ -19,10 +19,7 @@ var (
 func Justify(arg []string) {
 	if (len(arg) < 2 || len(arg) > 5) || !strings.HasPrefix(arg[0], "--align=") {
 		fmt.Println("Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard")
-		
-
 		return
-
 	}
 	option = strings.TrimPrefix(arg[0], "--align=")
 	inputtext = arg[1]
@@ -38,26 +35,43 @@ func Justify(arg []string) {
 		} else {
 			inputtext = arg[1]
 			banner = arg[2]
+			if Checkbanner(banner) {
+				fmt.Println("Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard")
+				return
+			}
 		}
 	} else if len(arg) == 4 {
-		color_flage = arg[1]
-		if Checkbanner(arg[3]) {
-			inputtext = arg[2]
+		if strings.HasPrefix(arg[1], "--color=") {
+			color_flage = arg[1]
+			if !Checkbanner(arg[3]) {
+				inputtext = arg[2]
+				banner = arg[3]
+			} else {
+				substr = arg[2]
+				inputtext = arg[3]
+			}
 		} else {
+			fmt.Println("Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard")
+			return
+		}
+
+	} else if len(arg) == 5 {
+		if strings.HasPrefix(arg[1], "--color=") {
+			color_flage = arg[1]
 			substr = arg[2]
 			inputtext = arg[3]
-		}
-	} else if len(arg) == 5 {
-		color_flage = arg[1]
-		substr = arg[2]
-		inputtext = arg[3]
-		banner = arg[4]
-	}
-	if Checkbanner(banner) {
-		fmt.Println("Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard")
+			banner = arg[4]
+			if Checkbanner(banner) {
+				fmt.Println("Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard")
+				return
+			}
+		} else {
+			fmt.Println("Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard")
 
-		return
+			return
+		}
 	}
+
 	cmd := exec.Command("stty", "size")
 	cmd.Stdin = os.Stdin
 	si, _ := cmd.Output()

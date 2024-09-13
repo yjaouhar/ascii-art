@@ -5,10 +5,8 @@ import (
 )
 
 // calcule number of space to be printed
-func Calc_justify(elm string, matrix [][]string, widthInt int, option string) string {
-	spec := ""
+func Calc_justify(elm string, matrix [][]string, widthInt int, option string) int {
 	nbword := strings.Fields(elm)
-
 	lentext := Count(nbword, elm, matrix, option)
 	nbspec := (widthInt - lentext)
 	l := len(nbword) - 1
@@ -20,8 +18,6 @@ func Calc_justify(elm string, matrix [][]string, widthInt int, option string) st
 		}
 		nbspec = ((widthInt - lentext) / l)
 	}
-	for i := 0; i < nbspec; i++ {
-		spec += " "
-	}
-	return spec
+
+	return nbspec
 }

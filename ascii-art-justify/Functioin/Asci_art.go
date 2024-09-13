@@ -23,7 +23,7 @@ func Asci_art(option string, inputtext string, banner string, substr string, col
 		contentfile := Readfile(banner)
 		matrix := Split((string(contentfile)), banner)
 		for _, elm := range inputsep {
-			if strings.HasPrefix(os.Args[1], "--output") && len(os.Args) > 2 {
+			if strings.HasPrefix(os.Args[1], "--output=") && len(os.Args) > 2 {
 				if elm == "" {
 					writ += "\n"
 				} else {
@@ -43,16 +43,17 @@ func Asci_art(option string, inputtext string, banner string, substr string, col
 						return
 					}
 				} else if strings.HasPrefix(os.Args[1], "--align=") {
+					if color_flage != "" {
+						namecolor = strings.TrimPrefix(color_flage, "--color=")
+						sl, color_valide := Checkcolors(namecolor)
+						if color_valide && len(sl) != 0 {
+							code := color.RGBA{R: sl[0], G: sl[1], B: sl[2]}
+							colore = Convertrgbtocode(code)
 
-					color_flage = strings.TrimPrefix(color_flage, "--color=")
-					sl, color_valide := Checkcolors(namecolor)
-					if color_valide && len(sl) != 0 {
-						code := color.RGBA{R: sl[0], G: sl[1], B: sl[2]}
-						colore = Convertrgbtocode(code)
-
-					} else {
-						fmt.Println("Usage: go run . [OPTION] [STRING]\n\nEX: go run . --color=<color> <substring to be colored> something")
-						return
+						} else {
+							fmt.Println("Usage: go run . [OPTION] [STRING]\n\nEX: go run . --color=<color> <substring to be colored> something")
+							return
+						}
 					}
 					spec = Calc_justify(elm, matrix, width, option)
 				}
